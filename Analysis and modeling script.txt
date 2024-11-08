@@ -1,0 +1,64 @@
+# The following packages will be needed/helpful for this script to run 
+# install.packages(rgl)
+# install.packages(ggplot2)
+
+
+library(rgl);library(ggplot2)
+
+data=read.csv(file.choose())
+# lets you choose from where you downloaded the data
+
+x1 = data[,1];y1=data[,2];z1 = data[,3]
+
+#since data is a frame, we can add a column designating color to data classification
+
+data$Colour="black"
+
+data$Colour[data$Pct.change.in.death.rate<=-10]="green"
+data$Colour[data$Pct.change.in.death.rate<=-15]="cyan"
+data$Colour[data$Pct.change.in.death.rate>=5]="orange"
+data$Colour[data$Pct.change.in.death.rate>=10]="red"
+data$Colour[data$Pct.change.in.death.rate>=20]="black"
+data$Colour[data$Pct.change.in.death.rate<5&data$Pct.change.in.death.rate>0]="yellow"
+data$Colour[data$Pct.change.in.death.rate>=-10&data$Pct.change.in.death.rate<0]="blue"
+
+plot3d(x = x1,y=y1,z=z1,xlim=c(-170,-50),ylim=c(10,70),col=data$Colour,size = 5,zlab="% change in death rate over last ten years")
+
+legend3d("topright",col=c(1,2,7,4,3,5),legend=c("severe","worse","concern","no concern","improvement","major improvement"),pch=16)
+
+
+
+# now for a basic statistical analysis
+
+avgtrend = mean(z1)
+sdev = sd(z1)
+s.err = sdev/sqrt(length(z1))
+dof=length(z1)-1
+
+cv = qt(.975,dof)
+pt(cv,dof)-pt(-cv,dof)
+
+#lower and upper bounds
+low = avgtrend-(cv*s.err)
+hi = avgtrend+(cv*s.err)
+
+# we can be 95 percent confident that the mean trend in excess deaths is between -0.3479564% and 0.236817%
+
+
+#
+
+z.dist=(z1-avgtrend)/sdev
+pdf=dnorm(z1,avgtrend,sdev)
+plot(z.dist,pdf)
+# there seems to be a slight skew towards positive trends in excess Cardiovascular Death rate
+
+# future work: calculating a mean in the trend in all 50 states and running 
+# an analysis of variance (ANOVA)
+# this can help us conclude the direction of any possible nationwide trends in death rate
+
+
+
+# the mean 10-year trend in Cardiovascular excess death is: -0.05557%
+# it would appear the as a total, cardiovascular excess deaths have stayed stable. 
+# however, our graphical map tells what areas have gotten significantly worse, and which have gotten better across ten years.
+
