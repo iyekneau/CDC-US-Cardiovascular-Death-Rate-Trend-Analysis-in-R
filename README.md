@@ -11,3 +11,7 @@ significantly worse. Other areas all across the country have made improvements a
 I have processed the CDC's whole csv file and focused in on latitude, longitude and percent change in death rate across 10 years. That preprocessed csv is available in this repository.
 
 Feel free to use my R code and add on to the project in any way you see fit!
+
+<img width="635" alt="excess death trendmap " src="https://github.com/user-attachments/assets/5889c8d6-3d1a-47f0-84ec-0e133f46d93f">
+<img width="675" alt="trend density excess deaths" src="https://github.com/user-attachments/assets/78157f0b-f284-4f1f-b2fc-7c9518ff4cdc">
+<img width="929" alt="distribution graph" src="https://github.com/user-attachments/assets/cb92549c-339e-49ad-99b8-cf381c63829a">
