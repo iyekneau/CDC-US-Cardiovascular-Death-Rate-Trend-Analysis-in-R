@@ -8,7 +8,9 @@ We can use R to determine how trends are changing, what parts of the country are
 An overall summary: across the US, it seems death rates have remained mostly unchanged in 10 years. However, it is worth noting that some areas of the south (Texas,Florida) have gotten 
 significantly worse. Other areas all across the country have made improvements as well. The general spread of the data can make it tricky to determine a nationwide trend. 
 
-I have processed the CDC's whole csv file and focused in on latitude, longitude and percent change in death rate across 10 years. That preprocessed csv is available in this repository.
+Variance analysis insists that the national mean trend is not indicative of state trends in excess deaths (F>4.10)
+
+I have processed the CDC's whole csv file and focused in on latitude, longitude and percent change in death rate across 10 years. That preprocessed csv is available in this repository. Additionally, I have made a csv isolating the State and pct changes to one may run ANOVA analysis.
 
 Feel free to use my R code and add on to the project in any way you see fit! All you need to do is copy the text from the txt script file into your R console and you'll get the models
 and code to run.
