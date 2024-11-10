@@ -52,9 +52,36 @@ pdf=dnorm(z1,avgtrend,sdev)
 plot(z.dist,pdf)
 # there seems to be a slight skew towards positive trends in excess Cardiovascular Death rate
 
-# future work: calculating a mean in the trend in all 50 states and running 
-# an analysis of variance (ANOVA)
+#analysis of variance (ANOVA)
 # this can help us conclude the direction of any possible nationwide trends in death rate
+
+#we can run the variance analysis:
+
+
+aov.dat = read.csv(file.choose())
+#find the pctchange vs location csv where you have downloaded it on your computer
+
+#we can quickly visualize the normalcy of the data and boxplot to gauge the trends for ourselves
+
+trend.means= tapply(aov.dat$Pctchange,INDEX=Location,FUN=mean)
+
+boxplot(aov.dat$Pctchange~aov.dat$Location)
+points(1:51,trend.means,pch=4,cex=1.5)
+
+# the plot shows the best performing states seem to be Alaska and Connecticut. This is likely due to limited samples
+
+trend.cen = aov.dat$Pctchange-mean(aov.dat$Pctchange)
+qqnorm(trend.cen,main="Normal QQ plot of residuals")
+qqline(trend.cen)
+# we can safely assume a normal distribution according to the plot
+
+
+trend.aov=aov(Pctchange~Location,data=aov.dat)
+summary(trend.aov)
+
+#It appears that the F value here is enough to conclude that the national mean percent change in CVD deaths in ages 35-60
+# is not reflective of the trends in the individual states, and that they have changed substaintially more than it would
+# indicate.
 
 
 
